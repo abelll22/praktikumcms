@@ -11,10 +11,10 @@
         @method('PUT')
 
         <label>Nama atau merk:</label><br>
-        <input type="text" name="title" value=""><br><br> <!-- Kosong -->
+        <input type="text" name="title" value=""><br><br> 
 
         <label>Catatan Tambahan:</label><br>
-        <textarea name="content" rows="5" cols="40"></textarea><br><br> <!-- Kosong -->
+        <textarea name="content" rows="5" cols="40"></textarea><br><br> 
     </form>
     <button type="submit">Simpan</button>
     <a href="{{ url('/barangs/' . $barang['id']) }}">← Kembali ke detail</a>
