@@ -30,7 +30,7 @@ class BarangController extends Controller
 
     public function store(Request $request)
     {
-        return redirect('/barangs')->with('success', 'Tambahan Barang berhasil disimpan!!');
+        return redirect('/barangs')->with('success', 'Tambahan Barang berhasil disimpan!');
     }
 
     public function delete($id)
