@@ -14,41 +14,60 @@ class BarangController extends Controller
     }
 
     public function show($id)
-    {
-        $barang = Barang::find($id);
-        if (!$barang) {
-            abort(404);
-        }
-        return view('barangs.show', compact('barang'));
+{
+    $barang = Barang::find($id);
+
+    if (!$barang) {
+        abort(404);
+    }
+
+    $confirmDelete = request()->query('confirm') === 'delete';
+
+    return view('barangs.show', compact('barang', 'confirmDelete'));
     }
 
     public function create()
     {
-        $barangs = Barang::all(); 
-        return view('barangs.create', compact('barangs'));
+        return view('barangs.create');
     }
 
     public function store(Request $request)
     {
-        return redirect('/barangs')->with('success', 'Tambahan Barang berhasil disimpan!');
-    }
-
-    public function delete($id)
-    {
-        $barang = Barang::find($id);
-        if (!$barang) abort(404);
-        return view('barangs.delete', compact('barang'));
+        return redirect('/barangs')->with('success', 'Barang berhasil ditambahkanS.');
     }
 
     public function edit($id)
     {
         $barang = Barang::find($id);
-        if (!$barang) abort(404);
+        if (!$barang) {
+            abort(404);
+        }
         return view('barangs.edit', compact('barang'));
     }
 
     public function update(Request $request, $id)
     {
-        return redirect('/barangs/' . $id)->with('success', 'Barang berhasil diperbarui!');
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+    
+        return redirect('/barangs/' . $id)->with('success', 'Barang berhasil diperbarui.');
     }
+
+    public function delete($id)
+    {
+        $barang = Barang::find($id);
+        if (!$barang) {
+            abort(404);
+        }
+        return view('barangs.delete', compact('barang'));
+    }
+
+    public function destroy($id)
+    {
+        return redirect()->route('barangs.index')->with('success', 'Barang berhasil dihapus.');
+    }
+    
+
 }

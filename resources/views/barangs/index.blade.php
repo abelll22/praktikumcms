@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Daftar Barang</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Daftar Barang')
+
+@section('content')
+
     <h1>Daftar Barang Hari Ini</h1>
 
     {{-- Menampilkan pesan sukses jika ada --}}
@@ -16,16 +16,15 @@
         <li>
             <strong>{{ $barang['title'] }}</strong><br>
             {{ $barang['content'] }}<br>
-            <a href="{{ url('/barangs/' . $barang['id']) }}">Lihat Detail</a> |
-            <a href="{{ url('/barangs/' . $barang['id'] . '/edit') }}">Edit</a> |
-            <a href="{{ url('/barangs/' . $barang['id'] . '/delete') }}">Hapus</a>
+            <a href="{{ route('barangs.show', $barang['id']) }}">Lihat Detail</a> |
+            <a href="{{ route('barangs.edit', $barang['id']) }}">Edit</a> |
+            <a href="{{ route('barangs.show', ['id' => $barang['id'], 'confirm' => 'delete']) }}">Hapus</a>
         </li>
         <hr>
     @endforeach
     </ul>
-    
+
     <br><br>
     <a href="{{ route('barangs.create') }}">+ Tambah Barang</a>
-</body>
-</html>
 
+@endsection

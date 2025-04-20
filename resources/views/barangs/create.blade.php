@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tambah Barang</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Tambah Barang')
+
+@section('content')
     <h1>Tambah Barang</h1>
 
     @if (session('success'))
         <p style="color: green;">{{ session('success') }}</p>
     @endif
 
-    <form action="{{ url('/barangs') }}" method="POST">
+    <form action="{{ route('barangs.store') }}" method="POST">
         @csrf
         <label>Nama Barang:</label><br>
         <input type="text" name="title" required><br><br>
@@ -21,6 +20,5 @@
         <button type="submit">Simpan</button>
     </form>
     <br>
-    <a href="{{ url('/barangs') }}">← Kembali ke Daftar Barang Hari Ini</a>
-</body>
-</html>
+    <a href="{{ route('barangs.index') }}">← Kembali ke Daftar Barang Hari Ini</a>
+@endsection
