@@ -2,45 +2,23 @@
 
 namespace App\Models;
 
-class Barang
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Barang extends Model
 {
-    protected static function getDummyData()
-    {
-        return [
-            [
-                'id' => 1,
-                'title' => 'Nama Barang',
-                'content' => 'Berisi id barang dan nama barang.',
-                'items' => ['001/Indomie', '002/Susu', '003/Minuman'],
-            ],
-            [
-                'id' => 2,
-                'title' => 'Stok Barang',
-                'content' => 'Berisi tentang jumlah barang yang ada.',
-                'items' => ['Indomie: 100', 'Susu: 50', 'Minuman: 30'],
-            ],
-            [
-                'id' => 3,
-                'title' => 'Pesanan Barang',
-                'content' => 'Berisi catatan pesanan barang.',
-                'items' => ['Indomie = 10 DUS - Pemesanan A', 'Susu = 5 DUS - Pemesanan B'],
-            ],
-        ];
-    }
+    use HasFactory;
 
-    public static function all()
-    {
-        return self::getDummyData();
-    }
 
-    public static function find($id)
-    {
-        foreach (self::getDummyData() as $barang) {
-            if ($barang['id'] == $id) {
-                return $barang;
-            }
-        }
+    protected $table = 'barang';
 
-        return null;
-    }
+    
+    protected $fillable = [
+        'title',
+        'content',
+        'id_pemasok',
+        'stok_barang',
+        'pesanan_barang',
+    ];
+
 }

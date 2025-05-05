@@ -14,16 +14,9 @@ class BarangController extends Controller
     }
 
     public function show($id)
-{
-    $barang = Barang::find($id);
-
-    if (!$barang) {
-        abort(404);
-    }
-
-    $confirmDelete = request()->query('confirm') === 'delete';
-
-    return view('barangs.show', compact('barang', 'confirmDelete'));
+    {
+        $barang = Barang::findOrFail($id);
+        return view('barangs.show', compact('barang'));
     }
 
     public function create()
@@ -33,41 +26,21 @@ class BarangController extends Controller
 
     public function store(Request $request)
     {
-        return redirect('/barangs')->with('success', 'Barang berhasil ditambahkanS.');
-    }
-
-    public function edit($id)
-    {
-        $barang = Barang::find($id);
-        if (!$barang) {
-            abort(404);
-        }
-        return view('barangs.edit', compact('barang'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required',
-            'content' => 'required',
+            'id_pemasok' => 'required',
+            'stok_barang' => 'required|integer',
+            'pesanan_barang' => 'required',
         ]);
-    
-        return redirect('/barangs/' . $id)->with('success', 'Barang berhasil diperbarui.');
-    }
 
-    public function delete($id)
-    {
-        $barang = Barang::find($id);
-        if (!$barang) {
-            abort(404);
-        }
-        return view('barangs.delete', compact('barang'));
+        Barang::create($validated);
+
+        return redirect()->route('barangs.index')->with('success', 'Barang berhasil disimpan.');
     }
 
     public function destroy($id)
     {
+        Barang::destroy($id);
         return redirect()->route('barangs.index')->with('success', 'Barang berhasil dihapus.');
     }
-    
-
 }

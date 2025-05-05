@@ -3,28 +3,26 @@
 @section('title', 'Daftar Barang')
 
 @section('content')
+    <h1>Daftar Barang</h1>
 
-    <h1>Daftar Barang Hari Ini</h1>
-
-    {{-- Menampilkan pesan sukses jika ada --}}
     @if (session('success'))
         <p style="color: green;"><strong>{{ session('success') }}</strong></p>
     @endif
 
     <ul>
-    @foreach ($barangs as $barang)
-        <li>
-            <strong>{{ $barang['title'] }}</strong><br>
-            {{ $barang['content'] }}<br>
-            <a href="{{ route('barangs.show', $barang['id']) }}">Lihat Detail</a> |
-            <a href="{{ route('barangs.edit', $barang['id']) }}">Edit</a> |
-            <a href="{{ route('barangs.show', ['id' => $barang['id'], 'confirm' => 'delete']) }}">Hapus</a>
-        </li>
-        <hr>
-    @endforeach
+        @foreach ($barangs as $barang)
+            <li>
+                <strong>{{ $barang->title }}</strong><br>
+                <a href="{{ route('barangs.show', $barang->id) }}">Lihat Detail</a> |
+                <form action="{{ route('barangs.destroy', $barang->id) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Hapus</button>
+                </form>
+            </li>
+            <hr>
+        @endforeach
     </ul>
 
-    <br><br>
     <a href="{{ route('barangs.create') }}">+ Tambah Barang</a>
-
 @endsection
