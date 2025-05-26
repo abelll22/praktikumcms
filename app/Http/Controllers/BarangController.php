@@ -31,6 +31,7 @@ class BarangController extends Controller
             'id_pemasok' => 'required',
             'stok_barang' => 'required|integer',
             'pesanan_barang' => 'required',
+            'content' => 'required',
         ]);
 
         Barang::create($validated);

@@ -19,6 +19,9 @@
         <label>Pesanan Barang:</label><br>
         <textarea name="pesanan_barang" required></textarea><br><br>
 
+        <label>Konten:</label><br>
+        <textarea name="content" required></textarea><br><br>
+
         <button type="submit">Simpan</button>
     </form>
 
