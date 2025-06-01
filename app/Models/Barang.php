@@ -21,4 +21,10 @@ class Barang extends Model
         'pesanan_barang',
     ];
 
+    public function transaksis()
+{
+    return $this->hasMany(Transaksi::class);
+}
+
+
 }
