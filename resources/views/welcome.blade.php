@@ -57,5 +57,6 @@
     <h1>Selamat Datang di Toko Sembako</h1>
     <p>Belanja hemat, lengkap, dan cepat hanya di sini 🎉🛒</p>
     <a href="{{ route('barangs.index') }}" class="btn">Masuk ke Daftar Barang</a>
+    <a href="{{ route('image.upload') }}" class="btn">Lihat Gambar</a>
 </div>
 @endsection

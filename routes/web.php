@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,5 +24,8 @@ Route::middleware(['toko.maintenance'])->group(function () {
     Route::get('/transaksis/create', [TransaksiController::class, 'create'])->name('transaksis.create');
     Route::post('/transaksis', [TransaksiController::class, 'store'])->name('transaksis.store');
     Route::resource('transaksis', TransaksiController::class)->except(['index', 'create', 'store']);
+
+    Route::get('/upload', [ImageController::class, 'create']);
+    Route::post('/upload', [ImageController::class, 'store'])->name('image.upload');
 
 });
