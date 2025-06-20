@@ -33,4 +33,20 @@ class ImageController extends Controller
             'image' => $image
         ])->with('success', 'Gambar berhasil diunggah!');
     }
+
+    public function destroy($id)
+{
+    $image = Image::findOrFail($id);
+
+    // Hapus file dari storage
+    if (\Storage::disk('public')->exists($image->image_path)) {
+        \Storage::disk('public')->delete($image->image_path);
+    }
+
+    // Hapus record dari database
+    $image->delete();
+
+    return redirect('/upload')->with('success', 'Gambar berhasil dihapus.');
+}
+
 }

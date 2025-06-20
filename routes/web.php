@@ -25,7 +25,13 @@ Route::middleware(['toko.maintenance'])->group(function () {
     Route::post('/transaksis', [TransaksiController::class, 'store'])->name('transaksis.store');
     Route::resource('transaksis', TransaksiController::class)->except(['index', 'create', 'store']);
 
+    // Route Upload Image
     Route::get('/upload', [ImageController::class, 'create']);
     Route::post('/upload', [ImageController::class, 'store'])->name('image.upload');
+    Route::delete('/upload/{id}', [ImageController::class, 'destroy'])->name('image.delete');
+
+    // Route Cari Barang
+    Route::post('/barangs/cari', [BarangController::class, 'searchByName'])->name('barangs.search');
+
 
 });

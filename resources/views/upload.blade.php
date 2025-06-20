@@ -39,6 +39,16 @@
         <h3>Gambar Terbaru:</h3>
         <p><strong>{{ $image->title }}</strong></p>
         <img src="{{ asset('storage/' . $image->image_path) }}" width="250">
+        
+{{-- Tombol Delete --}}
+    <form action="{{ route('image.delete', $image->id) }}" method="POST" style="margin-top: 15px;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" style="color: white; background: red; padding: 8px 20px; border: none; cursor: pointer;">
+            Hapus Gambar
+        </button>
+    </form>
+
     @endif
 </body>
 </html>
