@@ -57,7 +57,7 @@ class BarangController extends Controller
     try {
         $barang = Barang::where('title', $request->title)->firstOrFail();
 
-        // LOG INFO jika ditemukan
+        // Log Info jika ditemukan
         Log::info('Barang ditemukan melalui pencarian.', [
             'title_input' => $request->title,
             'barang_id' => $barang->id,
@@ -67,7 +67,7 @@ class BarangController extends Controller
         return redirect()->route('barangs.show', $barang->id);
 
     } catch (ModelNotFoundException $e) {
-        // LOG ERROR jika tidak ditemukan
+        // Log Error jika tidak ditemukan
         Log::error('Pencarian gagal: Barang tidak ditemukan', [
             'title_input' => $request->title,
             'file' => $e->getFile(),

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -14,39 +15,45 @@ class ImageController extends Controller
 
     public function store(Request $request)
     {
+        // ✅ Validasi file + pesan error custom
         $request->validate([
-            'title' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'title' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ], [
+            'title.required' => 'Judul gambar wajib diisi!',
+            'image.required' => 'File gambar belum dipilih.',
+            'image.image' => 'File yang diupload harus berupa gambar!',
+            'image.mimes' => 'Format gambar hanya boleh jpeg, png, jpg, gif, svg.',
+            'image.max' => 'Ukuran gambar maksimal 2MB ya kak!',
         ]);
 
-        // Simpan file ke folder storage/app/public/images
+        // ✅ Simpan ke storage (folder public/images)
         $imagePath = $request->file('image')->store('images', 'public');
 
-        // Simpan data ke database
+        // ✅ Simpan ke DB
         $image = Image::create([
             'title' => $request->title,
             'image_path' => $imagePath,
         ]);
 
-        // Kirim data gambar ke tampilan untuk ditampilkan kembali
+        // ✅ Tampilkan ke halaman upload
         return view('upload', [
             'image' => $image
         ])->with('success', 'Gambar berhasil diunggah!');
     }
 
     public function destroy($id)
-{
-    $image = Image::findOrFail($id);
+    {
+        $image = Image::findOrFail($id);
 
-    // Hapus file dari storage
-    if (\Storage::disk('public')->exists($image->image_path)) {
-        \Storage::disk('public')->delete($image->image_path);
+        // ✅ Hapus dari storage
+        if (Storage::disk('public')->exists($image->image_path)) {
+            Storage::disk('public')->delete($image->image_path);
+        }
+
+        // ✅ Hapus dari database
+        $image->delete();
+
+        return redirect('/upload')->with('success', 'Gambar berhasil dihapus.');
     }
-
-    // Hapus record dari database
-    $image->delete();
-
-    return redirect('/upload')->with('success', 'Gambar berhasil dihapus.');
-}
-
 }
