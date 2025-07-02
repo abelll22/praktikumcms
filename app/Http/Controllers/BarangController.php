@@ -39,13 +39,13 @@ class BarangController extends Controller
 
         Barang::create($validated);
 
-        return redirect()->route('barangs.index')->with('success', 'Barang berhasil disimpan/');
+        return redirect()->route('barangs.index')->with('success', 'Barang berhasil disimpan');
     }
 
     public function destroy($id)
     {
         Barang::destroy($id);
-        return redirect()->route('barangs.index')->with('success', 'Barang berhasil dihapus.');
+        return redirect()->route('barangs.index')->with('success', 'Barang berhasil dihapus./');
     }
 
     public function searchByName(Request $request)
