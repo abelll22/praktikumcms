@@ -56,7 +56,7 @@
                             <a class="nav-link" href="{{ route('barangs.index') }}">📦 Daftar Barang</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('barangs.create') }}">➕ Tambah Barang</a>
+                            <a class="nav-link" href="{{ route('barangs.create') }}">➕ Update Barang</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('transaksis.index') }}">🧾 Transaksi Penjualan</a>

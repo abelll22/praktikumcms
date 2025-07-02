@@ -39,7 +39,7 @@ class BarangController extends Controller
 
         Barang::create($validated);
 
-        return redirect()->route('barangs.index')->with('success', 'Barang berhasil disimpan.');
+        return redirect()->route('barangs.index')->with('success', 'Barang berhasil disimpan/');
     }
 
     public function destroy($id)
